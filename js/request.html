@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+   <title>Overpass API request</title>
+
+    <script>function go() {
+
+       var query = document.getElementById('query').value;
+       var url   = 'https://overpass-api.de/api/interpreter?data=' + query
+
+       fetch('https://overpass-api.de/api/interpreter', {
+           method : "POST",
+           body   :  query
+//         body   :  // new FormData ( document.getElementById("query")),
+       }).then(r => {
+
+           if (r.status !== 200) {
+              alert(r.status);
+              return;
+           }
+
+           r.text().then(txt => {
+               document.getElementById('out').innerText = txt;
+           });
+
+       }).catch(e => {
+           alert('Request produced an error: ' + e);
+       });
+
+    }</script>
+
+</head>
+<body>
+
+  <textarea id='query' rows='5' cols='80'>nwr[wikidata = Q65119];
+out skel;
+</textarea>
+
+
+   <p><input type='button' value='Go!' onclick='go();'/>
+
+   <p>Query result:<br>
+   <div id='out' style='font-family: monospace'></div>
+
+</body>
+</html>
