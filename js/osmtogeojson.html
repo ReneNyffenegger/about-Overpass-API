@@ -27,6 +27,10 @@
 
                let geoson = osmtogeojson(xml, {
                   // Options go here, can be used to filter uninteresting tags etc.
+                  // ---
+                  // uninterestingTags: {
+                  //    "tag_name": true
+                  // }
                });
              
                document.getElementById('out').innerText = JSON.stringify(geoson);
