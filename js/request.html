@@ -6,8 +6,7 @@
 
     <script>function go() {
 
-       var query = document.getElementById('query').value;
-       var url   = 'https://overpass-api.de/api/interpreter?data=' + query
+       let query = document.getElementById('query').value;
 
        fetch('https://overpass-api.de/api/interpreter', {
            method : "POST",
