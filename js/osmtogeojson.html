@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+   <title>Overpass API request</title>
+
+    <script src='lib/osmtogeojson.js'></script>
+
+    <script>function go() {
+
+       let query = document.getElementById('query').value;
+       let url   = 'https://overpass-api.de/api/interpreter?data=' + query
+
+       fetch('https://overpass-api.de/api/interpreter', {
+           method : "POST",
+           body   :  query
+       }).then(r => {
+
+           if (r.status !== 200) {
+              alert(r.status);
+              return;
+           }
+
+           r.text().then(txt => {
+
+               let domParser = new DOMParser ();
+               let xml = domParser.parseFromString (txt, 'text/xml');
+
+               let geoson = osmtogeojson(xml, {
+                  // Options go here, can be used to filter uninteresting tags etc.
+               });
+             
+               document.getElementById('out').innerText = JSON.stringify(geoson);
+           });
+
+       }).catch(e => {
+           alert('Request produced an error: ' + e);
+       });
+
+    }</script>
+
+</head>
+<body>
+
+  <textarea id='query' rows='5' cols='80'>nwr[wikidata = Q65119];
+out geom;
+</textarea>
+
+
+   <p><input type='button' value='Go!' onclick='go();'/>
+
+   <p>Query result:<br>
+   <div id='out' style='font-family: monospace'></div>
+
+</body>
+</html>
