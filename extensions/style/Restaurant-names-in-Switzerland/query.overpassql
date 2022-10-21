@@ -22,5 +22,5 @@ out;
    node [name=Sonne]   { fill-color: yellow ; color: yellow }
    node [name=Linde]   { fill-color: lime   ; color: lime   }
    node [name=Traube]  { fill-color: navy   ; color: navy   }
-   node [name=Ochse]   { fill-color: teal   ; color: teal   }
+   node [name=Ochsen]  { fill-color: teal   ; color: teal   }
 }}
